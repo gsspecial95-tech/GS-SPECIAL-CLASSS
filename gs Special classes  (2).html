@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="hi"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width,initial-scale=1"> 
+  <title>untitled</title> 
+ </head> 
+ <body> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width,initial-scale=1"> 
+  <title>GS SPECIAL CLASSES — Modern</title> 
+  <meta name="description" content="GS SPECIAL CLASSES — Modern site with live student counter"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"> 
+  <style>
+    :root{
+      --accent-1:#0b72d8;
+      --accent-2:#0666c2;
+      --bg-1:#f4f8ff;
+      --muted:#64748b;
+      --card:#ffffff;
+      --radius:14px;
+      --maxw:1200px;
+      --shadow-soft:0 10px 30px rgba(17,24,39,0.06);
+      --shadow-strong:0 18px 50px rgba(2,6,23,0.12);
+      --gold:#FFD700;
+      --red:#FF3B3B;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#0b2236;background:linear-gradient(180deg,var(--bg-1),#fff)}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin:28px auto;padding:20px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:14px}
+
+    /* GOLD-RED LOGO (60x60) */
+    .logo-wrap{width:60px;height:60px;perspective:800px}
+    .logo3d{
+      width:60px;height:60px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:20px;
+      background:linear-gradient(135deg,var(--gold) 0%, var(--red) 100%);
+      color:#000;
+      position:relative;overflow:hidden;
+      box-shadow:0 8px 26px rgba(255,99,71,0.12), 0 4px 10px rgba(0,0,0,0.08);
+      transform:rotateX(6deg);
+    }
+    .logo3d::after{ content:""; position:absolute; inset:0; border-radius:10px; box-shadow: inset 0 -6px 18px rgba(0,0,0,0.06); pointer-events:none; }
+    .logo3d .gs-shine{
+      position:absolute; top:-40%; left:-40%; width:36%; height:180%;
+      background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      transform:rotate(-18deg); filter:blur(2px); opacity:0.95; mix-blend-mode:overlay;
+      animation:gs-shine 2.6s linear infinite; pointer-events:none;
+    }
+    @keyframes gs-shine{
+      0%{ transform:translateX(-220%) rotate(-18deg); opacity:0 }
+      10%{ opacity:1 }
+      50%{ transform:translateX(220%) rotate(-18deg); opacity:0.9 }
+      100%{ transform:translateX(420%) rotate(-18deg); opacity:0 }
+    }
+    .site-title{font-weight:800;font-size:18px}
+    .site-sub{font-size:13px;color:var(--muted)}
+
+    nav{display:flex;gap:12px;align-items:center}
+1@    nav a{padding:8px 10px;border-radius:9px;color:var(--muted);font-weight:600}
+    nav a:hover{background:rgba(11,114,216,0.04);color:var(--accent-1)}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;padding:22px;border-radius:18px;background:linear-gradient(180deg, rgba(11,114,216,0.05), rgba(11,114,216,0.01));box-shadow:var(--shadow-soft)}
+    .hero h1{margin:0;font-size:28px}
+    .hero p{margin:8px 0;color:var(--muted);max-width:66ch}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;font-weight:700;border:0;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#fff;box-shadow:0 12px 30px rgba(11,114,216,0.12)}
+    .btn-outline{background:transparent;border:1px solid rgba(11,114,216,0.08);color:var(--accent-1)}
+
+    /* Auto Headline (typewriter) */
+    .auto-headline{
+      font-weight:800;
+      font-size:18px;
+      line-height:1.35;
+      color:#0b2236;
+      margin-bottom:6px;
+      white-space:pre-wrap; /* preserve newlines */
+      min-height:120px; /* reserve space so layout doesn't jump while typing */
+    }
+    .auto-cursor{
+      display:inline-block;
+      width:10px;
+      background:var(--accent-1);
+      margin-left:6px;
+      animation:blink 1s steps(2, start) infinite;
+      vertical-align:middle;
+      height:18px;
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    /* Live student counter box */
+    .stats-row{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
+    .stat-card{
+      background:linear-gradient(180deg,#fff,#f8fbff);
+      padding:18px;border-radius:12px;box-shadow:var(--shadow-soft);display:flex;align-items:center;gap:14px;
+      min-width:200px;
+    }
+    .stat-number{font-size:28px;font-weight:800;color:var(--accent-1);line-height:1}
+    .stat-label{font-size:13px;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:14px;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;gap:10px;transition:transform .22s,box-shadow .22s}
+    .card:hover{transform:translateY(-8px);box-shadow:var(--shadow-strong)}
+    .card h3{margin:0 0 6px 0;font-size:18px}
+    .small{font-size:13px;color:var(--muted)}
+    .card-footer{margin-top:auto;display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .view-btn{background:transparent;border:1px solid var(--accent-1);color:var(--accent-1);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+    .pill{font-size:13px;background:rgba(11,114,216,0.06);padding:8px 10px;border-radius:999px;color:var(--accent-1);font-weight:700}
+
+    .form-card{margin-top:20px;padding:18px;border-radius:14px;background:var(--card);box-shadow:var(--shadow-soft)}
+    label{display:block;margin-top:12px;font-weight:700}
+    input,select,textarea{width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #e9f0fb;font-size:14px}
+    .muted{font-size:13px;color:var(--muted);margin-top:8px}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:2200}
+    .modal{background:#fff;border-radius:14px;max-width:880px;width:100%;max-height:92vh;overflow:auto;padding:20px;box-shadow:0 30px 80px rgba(2,6,23,0.18)}
+    .meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .meta-pill{background:rgba(11,114,216,0.06);padding:8px 10px;border-radius:999px;color:var(--accent-1);font-weight:700;font-size:13px}
+    .close-btn{background:transparent;border:0;font-weight:700;cursor:pointer;color:var(--muted)}
+
+    .fab-group{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:12px;z-index:2400}
+    .fab{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:999px;color:#fff;font-weight:800;text-decoration:none;box-shadow:var(--shadow-strong)}
+    .fab.wa{background:#25D366}
+    .fab.mail{background:linear-gradient(90deg,var(--accent-1),var(--accent-2))}
+
+    .muted-small{font-size:13px;color:var(--muted)}
+    footer{margin-top:28px;padding:28px 0;text-align:center;color:var(--muted)}
+    @media(min-width:900px){ .hero{grid-template-columns:1fr 360px} }
+    @media(max-width:620px){
+      .logo3d{transform:none}
+      .hero h1{font-size:20px}
+      .container{padding:14px}
+      .auto-headline{font-size:15px}
+    }
+  </style> 
+  <div class="container"> 
+   <header> 
+    <div class="brand" aria-hidden="false"> 
+     <div class="logo-wrap" id="logoWrap" aria-hidden="false"> 
+      <div class="logo3d" id="logo3d" role="img" aria-label="GS logo">
+        GS 
+       <div class="gs-shine" aria-hidden="true"></div> 
+      </div> 
+     </div> 
+     <div> 
+      <div class="site-title">
+        GS SPECIAL CLASSES 
+      </div> 
+      <div class="site-sub muted-small">
+        Online &amp; Offline — 11th-12th (Arts) • Competitive Courses 
+      </div> 
+     </div> 
+    </div> 
+    <nav aria-label="Main navigation"> <a href="#home">Home</a> <a href="#courses">Courses</a> <a href="#admission">Admission</a> <a href="#contact">Contact</a> 
+    </nav> 
+   </header> 
+   <main> 
+    <section id="home" class="hero" aria-labelledby="hero-title"> 
+     <div> <!-- AUTO HEADLINE (typewriter) --> 
+      <div id="autoHeadline" class="auto-headline" aria-live="polite" aria-atomic="true"></div><span id="autoCursor" class="auto-cursor" aria-hidden="true"></span> 
+      <h1 id="hero-title">Professional coaching — GS SPECIAL ARTS CLASSES</h1> 
+      <p>Focused batches for 11th-12th (Arts), Railway, Banking, NEET, JEE, Computer &amp; Ethical Hacking. Practical labs, mocks and personalized guidance.</p> 
+      <div class="actions"> <a class="btn btn-primary" href="#admission">Apply Now</a> <a class="btn btn-outline" href="tel:+918989438153">Call: +91 89894 38153</a> 
+      </div> <!-- LIVE STUDENT COUNTER --> 
+      <div class="stats-row" style="margin-top:18px;"> 
+       <div class="stat-card" aria-live="polite" aria-atomic="true"> 
+        <div> 
+         <div id="studentCount" class="stat-number">
+           0+ 
+         </div> 
+         <div class="stat-label">
+           Students enrolled 
+         </div> 
+        </div> 
+       </div> <!-- you can add more stat cards here if needed --> 
+       <div class="stat-card"> 
+        <div> 
+         <div class="stat-number">
+           13+ 
+         </div> 
+         <div class="stat-label">
+           Ongoing batches 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <aside style="padding:14px;border-radius:12px;background:var(--card);box-shadow:var(--shadow-soft)"> 
+      <div class="muted-small">
+        Email: <a href="mailto:krs3461@gmail.com">krs3461@gmail.com</a> 
+      </div> 
+      <div class="muted-small" style="margin-top:8px">
+        Address: Bharwara, Darbhanga, Bihar 
+      </div> 
+      <div style="margin-top:12px"> 
+       <div class="pill">
+         Faculty: Rajesh Sir 
+       </div> 
+      </div> 
+     </aside> 
+    </section> 
+    <section id="courses" style="margin-top:20px"> 
+     <h2>Courses We Offer</h2> 
+     <div class="grid" id="coursesGrid"> <!-- fees / duration removed from attributes as requested --> 
+      <div class="card" data-title="11th-12th (Arts)" data-faculty="Rajesh Sir" data-rating="5" data-desc="Complete Arts curriculum for 11th-12th with structured notes, weekly tests, and doubt sessions. Online &amp; offline batches."> 
+       <h3>11th-12th (Arts)</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> <!-- 5 filled stars --> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" fill="#f6b21a" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" fill="#f6b21a" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" fill="#f6b21a" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" fill="#f6b21a" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" fill="#f6b21a" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px">Classroom &amp; online batches — structured test series &amp; personalized doubt sessions.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Seats open 
+        </div> 
+        <div style="display:flex;gap:8px"> <button class="view-btn" type="button">View</button> 
+        </div> 
+       </div> 
+      </div> <!-- other cards (same structure) --> 
+      <div class="card" data-title="Computer &amp; Ethical Hacking" data-faculty="Rajesh Sir" data-rating="5" data-desc="Hands-on labs: programming, networking, OS internals, and ethical hacking projects."> 
+       <h3>Computer &amp; Ethical Hacking</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px">Practical labs, mini-projects and security best-practices for beginners.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Lab access 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Commerce Course (Hindi + English + Economics)" data-faculty="Rajesh Sir" data-rating="5" data-desc="Commerce subjects for students including Hindi, English and Economics with easy explanation and exam preparation."> 
+       <h3>Commerce Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Commerce subjects taught with simple concepts including Hindi, English and Economics for board exam preparation. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Hindi + English + Economics 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Science Course (Hindi + English)" data-faculty="Rajesh Sir" data-rating="5" data-desc="Science course for students who want to study basic science subjects with Hindi and English language support."> 
+       <h3>Science Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Science subjects explained in simple Hindi and English language for better understanding. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Hindi + English 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Computer Course (ADCA + DCA)" data-faculty="Rajesh Sir" data-rating="5" data-desc="Computer courses including ADCA and DCA where students learn computer basics, MS Office, internet, typing and practical lab work."> 
+       <h3>Computer Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Computer training courses including ADCA and DCA with practical lab, MS Office, internet, typing and professional computer skills. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          ADCA + DCA 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="PGDCA Computer Course" data-faculty="Rajesh Sir" data-rating="5" data-desc="PGDCA course where students learn advanced computer applications, programming basics, database, MS Office and practical lab training."> 
+       <h3>PGDCA Computer Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Post Graduate Diploma in Computer Application course including programming basics, database management, MS Office and advanced computer skills. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          PGDCA 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="CCC Computer Course" data-faculty="Rajesh Sir" data-rating="5" data-desc="CCC course where students learn computer basics, internet usage, MS Office, email, digital services and practical computer knowledge."> 
+       <h3>CCC Computer Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> CCC (Course on Computer Concepts) where students learn computer basics, internet, email, MS Word, Excel and digital knowledge. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          CCC Course 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Data Entry Operator Course" data-faculty="Rajesh Sir" data-rating="5" data-desc="Data Entry Operator course where students learn typing, MS Excel, data management, internet work and office data handling skills."> 
+       <h3>Data Entry Operator Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Data Entry Operator training including typing practice, MS Excel, office data work and practical computer data handling. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Data Entry Training 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Tally with GST Course" data-faculty="Rajesh Sir" data-rating="5" data-desc="Tally with GST course where students learn accounting, GST billing, inventory management and practical accounting software training."> 
+       <h3>Tally with GST Course</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px"> Professional accounting training using Tally software including GST billing, inventory management and real business accounting practice. </p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Accounting + GST 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="BA History" data-faculty="Rajesh Sir" data-rating="5" data-desc="History subject covering ancient, medieval and modern Indian history with exam preparation."> 
+       <h3>History</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small">Ancient, Medieval and Modern History with full exam preparation.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          BA Subject 
+        </div> <button class="view-btn">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="BA Political Science" data-faculty="Rajesh Sir" data-rating="5"> 
+       <h3>Political Science</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small">Indian Constitution, political theory and governance studies.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          BA Subject 
+        </div> <button class="view-btn">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="BA Geography" data-faculty="Rajesh Sir" data-rating="5"> 
+       <h3>Geography</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a">
+          <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" />
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a">
+          <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" />
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a">
+          <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" />
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a">
+          <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" />
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" fill="#f6b21a">
+          <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" />
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small">Physical geography, human geography and map study.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+         BA Subject
+        </div> <button class="view-btn">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="Railway &amp; Banking" data-faculty="Rajesh Sir" data-rating="4" data-desc="Prelims &amp; mains strategy, sectional mocks and time-management workshops."> 
+       <h3>Railway &amp; Banking</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px">Focused practice and strategy for government exams.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Mocks weekly 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="NEET &amp; JEE (Basics)" data-faculty="Rajesh Sir" data-rating="5" data-desc="Foundation classes for science entrance: concept clarity, problem solving and practice sets."> 
+       <h3>NEET &amp; JEE (Basics)</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px">Build problem solving skills and strong fundamentals — foundation batch.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Foundation 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+      <div class="card" data-title="SSC, BPSC, UPSC Guidance" data-faculty="Rajesh Sir" data-rating="4" data-desc="Long-term guidance: syllabus mapping, answer writing, current affairs &amp; interview prep."> 
+       <h3>SSC, BPSC, UPSC Guidance</h3> 
+       <div style="display:flex;align-items:center;gap:10px"> 
+        <div class="stars" aria-hidden="true"> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+         <svg class="star" viewbox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="#f6b21a"> <path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z" /> 
+         </svg> 
+        </div> 
+        <div class="muted-small">
+          Faculty: Rajesh Sir 
+        </div> 
+       </div> 
+       <p class="small" style="margin-top:8px">Structured plan for long-term career exams with current affairs integration.</p> 
+       <div class="card-footer"> 
+        <div class="pill">
+          Strategy plan 
+        </div> <button class="view-btn" type="button">View</button> 
+       </div> 
+      </div> 
+     </div> 
+    </section> <!-- Admission --> 
+    <section id="admission" class="form-card"> 
+     <h2>Admission Form</h2> 
+     <form id="admissionForm" autocomplete="on"> <label for="name">Full name</label> 
+      <input id="name" name="name" type="text" required placeholder="Your full name"> <label for="phone">Phone</label> 
+      <input id="phone" name="phone" type="tel" pattern="[0-9]{10}" required placeholder="10-digit mobile"> <label for="courseSelect">Course interested</label> <select id="courseSelect" name="course" required> //+++++++ <option value="">-- Select --</option> option&gt;11th-12th (Arts) <option>Science Course (Hindi + English)</option> <option>Commerce Course (Accountancy + Business Studies + Economics + Hindi + English)</option> <option>ADCA - Advanced Diploma in Computer Application</option> <option>DCA - Diploma in Computer Application</option> <option>PGDCA - Post Graduate Diploma in Computer Application</option> <option>CCC - Course on Computer Concepts</option> <option>Tally with GST</option> <option>Basic Computer Course</option> <option>MS Office Course</option> <option>Data Entry Operator</option> <option>Computer Typing</option> <option>Web Design</option> <option>Graphic Design</option> <option>Python Programming</option> <option>Ethical Hacking</option> <option>Railway</option> <option>Banking</option> <option>NEET </option> <option>JEE</option> <option> UPSC</option> <option>SSC </option> <option>BPSC </option> ///// <option>C Programming Course</option> <option>C++ Programming Course</option> <option>Java Programming Course</option> <option>PHP Programming Course</option> <option>JavaScript Programming Course</option> <option>HTML &amp; CSS Web Development</option> <option>Full Stack Web Development</option> <option>WordPress Website Development</option> <option>Android App Development</option> <option>Software Testing Course</option> <option>Computer Hardware Course</option> <option>Hardware &amp; Networking Course</option> <option>Computer Networking Course</option> <option>Cyber Security Course</option> <option>Digital Marketing Course</option> <option>SEO Course</option> <option>Video Editing Course</option> <option>Animation Course</option> <option>Photoshop Course</option> <option>CorelDRAW Course</option> <option>Illustrator Design Course</option> <option>AutoCAD Course</option> <option>3D Design Course</option> <option>Data Analysis Course</option> <option>Artificial Intelligence Course</option> <option>Machine Learning Course</option> <option>Cloud Computing Course</option> <option>Linux Operating System Course</option> <option>Computer Repairing Course</option> </select> <label for="msg">Message (optional)</label> <textarea id="msg" name="message" rows="4" placeholder="Any message or questions"></textarea> 
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"> <button class="btn btn-primary" type="submit">Submit &amp; Send</button> <button type="button" id="sendWa" class="btn btn-outline">Send WhatsApp Now</button> <button type="button" id="sendMail" class="btn btn-outline">Send Email Now</button> 
+      </div> 
+      <div id="formStatus" class="muted-small" style="margin-top:12px;color:crimson"></div> 
+     </form> 
+    </section> <!-- Contact + Google Map --> 
+    <section id="contact" style="margin-top:18px"> 
+     <h2>Contact</h2> 
+     <p class="muted-small">Address: Bharwara, Darbhanga, Bihar<br>Phone: <a href="tel:+918989438153">+91 89894 38153</a><br>Email: <a href="mailto:krs3461@gmail.com">krs3461@gmail.com</a></p> 
+     <div style="margin-top:16px;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.08);"> <!-- simple embed: change q= parameter to adjust map pin --> <iframe src="https://www.google.com/maps?q=Bharwara,Darbhanga,Bihar&amp;output=embed" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe> 
+     </div> 
+    </section> 
+   </main> 
+   <footer>
+     © <span id="year"></span> GS SPECIAL CLASSES 
+   </footer> 
+  </div> 
+  <div class="fab-group"> <a class="fab wa" id="fabWa" href="https://wa.me/918989438153" target="_blank" rel="noopener">💬 WhatsApp</a> <a class="fab mail" id="fabMail" href="mailto:krs3461@gmail.com">✉️ Email</a> 
+  </div> <!-- modal --> 
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true"> 
+   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"> 
+    <div style="display:flex;justify-content:space-between;align-items:center"> 
+     <h3 id="modalTitle">Course Title</h3> <button id="modalClose" class="close-btn">Close ✕</button> 
+    </div> 
+    <div id="modalMeta" class="meta-row"></div> 
+    <div id="modalDesc" style="color:var(--muted);line-height:1.6"></div> 
+   </div> 
+  </div> 
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // -------------- AUTO HEADLINE (typewriter) --------------
+    (function(){
+      const el = document.getElementById('autoHeadline');
+      const cursor = document.getElementById('autoCursor');
+
+      // Exact multi-line content provided by user:
+      const text = `WELCOME TO GS SPECIAL ARTS CLASSES
+Welcome to Bharwara’s Best Coaching Institute
+GS SPECIAL CLASSES
+यहाँ पर सभी वर्ग के छात्रों को पढ़ाया जाता है —
+Science | Arts | Commerce
+📚 11th–12th Board Preparation
+💻 Computer Courses
+🎯 Competitive Exams Preparation
+500+ Successful Students
+यहाँ पर सभी प्रकार की नौकरी की तैयारी कराई जाती है —
+चाहे सरकारी हो या प्राइवेट।
+आपका Selection यहीं से होगा।`;
+
+      const typeSpeed = 18;    // ms per character (adjust for faster/slower)
+      const linePause = 220;   // pause after each newline (ms)
+
+      // type preserving newlines (we use '\n' -> line break)
+      async function typeAll(text){
+        el.textContent = ''; // start fresh
+        for(let i=0;i<text.length;i++){
+          const ch = text[i];
+          if(ch === '\n'){
+            el.innerHTML += '<br>';
+            await wait(linePause);
+          } else {
+            // append escaped char
+            el.innerHTML += escapeHtml(ch);
+            await wait(typeSpeed);
+          }
+        }
+        // stop cursor after typing
+        cursor.style.opacity = '0';
+      }
+
+      function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+      function escapeHtml(s){
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      // start typing after small delay
+      setTimeout(()=> typeAll(text), 380);
+    })();
+    // -------------------------------------------------------
+
+    // modal wiring (view button -> show course desc)
+    function openModalFromCard(card){
+      const title = card.dataset.title || card.querySelector('h3').textContent;
+      const faculty = card.dataset.faculty || 'Rajesh Sir';
+      const rating = parseInt(card.dataset.rating||'0',10);
+      const desc = card.dataset.desc || '';
+
+      document.getElementById('modalTitle').textContent = title;
+      const meta = document.getElementById('modalMeta');
+      meta.innerHTML = '';
+      meta.appendChild(makePill('Faculty: ' + faculty));
+      const r = document.createElement('div'); r.className='meta-pill';
+      r.innerHTML = renderStarsInline(rating) + ' &nbsp; ' + rating + '/5';
+      meta.appendChild(r);
+      document.getElementById('modalDesc').textContent = desc;
+      const b = document.getElementById('modalBackdrop'); b.style.display='flex'; b.setAttribute('aria-hidden','false');
+      document.getElementById('modalClose').focus();
+    }
+    function makePill(txt){ const d=document.createElement('div'); d.className='meta-pill'; d.textContent=txt; return d; }
+
+    // render only filled (gold) stars equal to rating — NO empty/black stars
+    function renderStarsInline(n){
+      n = Math.max(0, Math.min(5, parseInt(n||0,10)));
+      let svg='';
+      for(let i=0;i<n;i++){
+        svg += '<svg width="14" height="14" viewBox="0 0 24 24" fill="#f6b21a" xmlns="http://www.w3.org/2000/svg"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.7 5.557L19.336 24 12 19.897 4.664 24l1.436-8.693L.4 9.75l7.932-1.732z"/></svg>';
+      }
+      return svg;
+    }
+
+    document.querySelectorAll('.view-btn').forEach(btn=>btn.addEventListener('click', ()=>{ const c=btn.closest('.card'); if(c) openModalFromCard(c); }));
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalBackdrop').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+    function closeModal(){ const b=document.getElementById('modalBackdrop'); b.style.display='none'; b.setAttribute('aria-hidden','true'); }
+
+    // admission: WhatsApp + mail
+    (function(){
+      const WA_PHONE = '918989438153';
+      const form = document.getElementById('admissionForm');
+      const status = document.getElementById('formStatus');
+      function values(){ return {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        course: document.getElementById('courseSelect').value.trim(),
+        message: document.getElementById('msg').value.trim()
+      }; }
+      function buildWaURL(d){ const lines=['Hello GS SPECIAL CLASSES, I want to apply for admission.']; if(d.name) lines.push('Name: '+d.name); if(d.phone) lines.push('Phone: '+d.phone); if(d.course) lines.push('Course: '+d.course); if(d.message) lines.push('Note: '+d.message); return 'https://wa.me/'+WA_PHONE+'?text='+encodeURIComponent(lines.join('\n')); }
+      function buildMailto(d){ const subj=encodeURIComponent('Admission: '+(d.name||'')); const body=encodeURIComponent('Name: '+(d.name||'')+'\nPhone: '+(d.phone||'')+'\nCourse: '+(d.course||'')+'\nMessage: '+(d.message||'')); return 'mailto:krs3461@gmail.com?subject='+subj+'&body='+body; }
+      document.getElementById('sendWa').addEventListener('click', ()=>{ const d=values(); window.open(buildWaURL(d),'_blank','noopener'); });
+      document.getElementById('sendMail').addEventListener('click', ()=>{ const d=values(); if(!d.name||!d.phone||!d.course){ status.textContent='कृपया नाम, मोबाइल और कोर्स भरें।'; return; } window.location.href = buildMailto(d); });
+      form.addEventListener('submit', function(e){ e.preventDefault(); status.textContent=''; const d=values(); if(!d.name||!d.phone||!d.course){ status.textContent='कृपया नाम, मोबाइल और कोर्स भरें।'; return; } try{ window.open(buildWaURL(d),'_blank','noopener'); }catch(_){} window.location.href = buildMailto(d); });
+    })();
+
+    // ---------------------------
+    // LIVE STUDENT COUNTER SCRIPT
+    // ---------------------------
+    (function(){
+      const el = document.getElementById('studentCount');
+
+      // CONFIG: change initialTarget to set starting "500" value
+      const initialTarget = 500;    // initial displayed students (user requested 500+)
+      const startFrom = 0;         // animation start value
+      const animateDuration = 1600; // ms to count from startFrom -> initialTarget
+
+      // For "live" effect after initial load: every few seconds add small random amount
+      const liveMinInterval = 4000; // ms
+      const liveMaxInterval = 12000; // ms
+      const liveMinIncrement = 1;
+      const liveMaxIncrement = 4;
+
+      // Internal current value
+      let current = startFrom;
+      let target = initialTarget;
+
+      // helper to update DOM (adds + sign)
+      function render(v){
+        // show with plus sign, e.g. "503+"
+        el.textContent = Math.floor(v) + '+';
+      }
+
+      // animate from current -> target over duration (ease-out)
+      function animateTo(to, duration){
+        const from = current;
+        const diff = to - from;
+        const start = performance.now();
+        function step(now){
+          const t = Math.min(1, (now - start) / duration);
+          // easeOutQuad
+          const eased = t * (2 - t);
+          const val = from + diff * eased;
+          render(val);
+          if(t < 1){
+            requestAnimationFrame(step);
+          } else {
+            current = to;
+            render(current);
+            scheduleLiveIncrease();
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      // schedule random live increments
+      function scheduleLiveIncrease(){
+        const wait = Math.random() * (liveMaxInterval - liveMinInterval) + liveMinInterval;
+        setTimeout(()=>{
+          const inc = Math.floor(Math.random() * (liveMaxIncrement - liveMinIncrement + 1)) + liveMinIncrement;
+          target = current + inc;
+          animateTo(target, 700);
+        }, wait);
+      }
+
+      // initialize
+      render(startFrom);
+      // animate up to initialTarget
+      setTimeout(()=> animateTo(initialTarget, animateDuration), 250);
+
+      // Expose for debugging (console)
+      window.GSStudentCounter = {
+        getValue: ()=> current,
+        setValue: (v)=> { current = v; target = v; render(v); }
+      };
+    })();
+
+  </script> 
+  <div style="position:fixed;left:10px;bottom:10px;padding:6px 10px;background:rgba(0,0,0,0.6);color:#fff;border-radius:8px;font-size:12px;font-family:Inter,Arial;">
+    developerj + DJ BRO 
+  </div> 
+ 
+</body></html>
